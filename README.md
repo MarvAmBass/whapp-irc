@@ -45,10 +45,10 @@ To run:
 ```
 docker run -d \
 	--name whapp-irc \
-	-v PATH_TO_DIR_FOR_DATA_HERE:/root \
+	-v $HOME/.whatsapp:/root \
 	-p 6667:6060 \
 	-p 3000:3000 \
-	-e "HOST=IP_ADDRESS_OR_DOMAIN_HERE" \
+	-e "HOST=localhost" \
 	lieuwex/whapp-irc
 ```
 
