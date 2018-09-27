@@ -49,7 +49,7 @@ docker run -d \
 	-p 6667:6060 \
 	-p 3000:3000 \
 	-e "HOST=localhost" \
-	lieuwex/whapp-irc
+	marvambass/whapp-irc
 ```
 
 ## local build
