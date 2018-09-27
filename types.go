@@ -49,6 +49,11 @@ func (c *Chat) Identifier() string {
 	}
 
 	name := c.SafeName()
+	
+	if len(name) == 0 {
+		name = "UnkownWAUser"
+	}
+
 	if !c.IsGroupChat && name[0] == '+' {
 		name = name[1:]
 	}
