@@ -43,9 +43,9 @@ func (c *Chat) SafeName() string {
 }
 
 func (c *Chat) Identifier() string {
-	prefix := "#"
+	prefix := ""
 	if c.IsGroupChat {
-		prefix = "#GRP-"
+		prefix = "#"
 	}
 
 	name := c.SafeName()
