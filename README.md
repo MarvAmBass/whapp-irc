@@ -19,6 +19,8 @@ _a simple whatsapp web <-> irc gateway_
 - probably some stuff I forgot.
 
 ## configuration
+whapp-irc provides two services. HTTP (port: `3000`) for Pictures/QR-Code etc. and IRC (port: `6060`) which is the gateway to WhatsApp.
+
 ### irc client
 To use whapp-irc optimally you should set the following client capabilities:
 - `server-time` (this will show the time when the message was sent in whatsapp
@@ -30,15 +32,41 @@ To use whapp-irc optimally you should set the following client capabilities:
 
 ### environment variables
 All configuration is done using environment variables.
+
 Quick and simple.
-- `HOST`: the IP/domain used to generate the URLs to media files;
-- `FILE_SERVER_PORT`: the port used for the file httpserver, if not 80 it will
-	be appended to the URLs;
-- `IRC_SERVER_PORT`: the port to listen on for IRC connections;
-- `LOG_LEVEL`: `normal` (default) or `verbose`, if verbose it will log all
-	communication between whapp-irc and the chromium instance;
-- `MAP_PROVIDER`: The map provider to use for location messages: can be one of
-	`googlemaps` (default) or `openstreetmap`.
+
+- `HOST`
+    - the IP/domain which is used when HTTP Fileserver URLs are generated
+    - _optional_
+    - _default:_ `localhost`
+    
+- `FILE_SERVER_PORT`:
+    - port which is used when HTTP Fileserver URLs are generated
+    - _optional_
+    - _default:_ `3000`
+
+- `IRC_SERVER_PORT`:
+    - the port to listen on for IRC connections
+    - _optional_
+    - _default:_ `6060`
+
+- `LOG_LEVEL`
+    - `normal` - normal logging output
+    - `verbose` - will log all communication between whapp-irc and the chromium instance
+    - _optional_
+    - _default:_ `normal`
+
+- `MAP_PROVIDER`
+    - The map provider to use for location messages
+    - can be one either `googlemaps` or `openstreetmap`
+    - _optional_
+    - _default:_ `googlemaps`
+
+### volumes
+
+- `/root`
+    - all data which should be persistent is stored beneath `/root`.
+    - _If you want persistance you should map this folder into your docker container._
 
 ## docker
 It's recommend to use the docker image.
@@ -49,10 +77,10 @@ To run:
 ```
 docker run -d \
 	--name whapp-irc \
-	-v PATH_TO_DIR_FOR_DATA_HERE:/root \
+	-v "$HOME/.whapp-irc:/root" \
 	-p 6667:6060 \
 	-p 3000:3000 \
-	-e "HOST=IP_ADDRESS_OR_DOMAIN_HERE" \
+	-e "HOST=localhost" \
 	lieuwex/whapp-irc
 ```
 
